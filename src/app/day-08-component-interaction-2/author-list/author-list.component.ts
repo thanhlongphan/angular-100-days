@@ -94,7 +94,12 @@ export const authors = [
 
 @Component({
   selector: 'app-author-list',
-  templateUrl: './author-list.component.html',
+  template: `<app-author-details
+    *ngFor="let author of authors"
+    [author]="author"
+    (deleteAuthor)="handleDelete($event)"
+  >
+  </app-author-details>`,
   styleUrls: ['./author-list.component.css'],
 })
 export class AuthorListComponent implements OnInit {

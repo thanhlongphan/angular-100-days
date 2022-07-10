@@ -1,11 +1,30 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 
 @Component({
   selector: 'app-progress-bar',
-  templateUrl: './progress-bar.component.html',
+  template: `
+    <div
+      class="progress-bar-container"
+      [style.backgroundColor]="backgroundColor"
+    >
+      <div
+        class="progress"
+        [style]="{
+          backgroundColor: progressColor,
+          width: progress + '%'
+        }"
+      ></div>
+    </div>
+  `,
   styleUrls: ['./progress-bar.component.css'],
 })
-export class ProgressBarComponent implements OnInit, OnChanges{
+export class ProgressBarComponent implements OnInit, OnChanges {
   //pass data from parent to child with input binding
   //@input(): property decorator (dung de truyen du lieu tu parent sang child), dung de gan them meta data cho property phia sau no. neu ko khai bao @input() thi se khong nhan duoc gia tri truyen vao tu component khac
   @Input() progress = 0;
@@ -17,9 +36,9 @@ export class ProgressBarComponent implements OnInit, OnChanges{
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if ("progress" in changes) {
-      if (typeof changes["progress"].currentValue !== "number") {
-        const progress = Number(changes["progress"].currentValue);
+    if ('progress' in changes) {
+      if (typeof changes['progress'].currentValue !== 'number') {
+        const progress = Number(changes['progress'].currentValue);
         if (Number.isNaN(progress)) {
           this.progress = 0;
         } else {
